@@ -1,0 +1,118 @@
+{
+	"name": "Pipeline 2",
+	"properties": {
+		"activities": [
+			{
+				"name": "Lookup",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "AzureSqlTable",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "Generate_token",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "Lookup",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://login.microsoftonline.com/16b3c013-d300-468d-ac64-7eda0820b6d3/oauth2/v2.0/token",
+					"connectVia": {
+						"referenceName": "AutoResolveIntegrationRuntime",
+						"type": "IntegrationRuntimeReference"
+					},
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/x-www-form-urlencoded"
+					},
+					"body": "tenant=16b3c013-d300-468d-ac64-7eda0820b6d3&client_id=07d06c9b-b7b6-4a11-ad6c-542c6bf9a7d1&client_secret=bd_8Q~cxNTSakF2xHV2vG5HVDzFtgsQUctNibc~E&grant_type=client_credentials&scope=https://monitor.azure.com/.default",
+					"authentication": {
+						"type": "ServicePrincipal",
+						"userTenant": "16b3c013-d300-468d-ac64-7eda0820b6d3",
+						"username": "07d06c9b-b7b6-4a11-ad6c-542c6bf9a7d1",
+						"resource": "https://monitor.azure.com",
+						"password": {
+							"type": "SecureString",
+							"value": "**********"
+						}
+					}
+				}
+			},
+			{
+				"name": "Data Collector API",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "Generate_token",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": {
+						"value": "https://synapse-custom-logs-w5hy.eastus-1.ingest.monitor.azure.com/dataCollectionRules/dcr-6881fb960cf24a95bf2b6145d5658c8e/streams/Custom-synapsemonitor_CL?api-version=2021-11-01-preview\n",
+						"type": "Expression"
+					},
+					"connectVia": {
+						"referenceName": "AutoResolveIntegrationRuntime",
+						"type": "IntegrationRuntimeReference"
+					},
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json",
+						"Authorization": {
+							"value": "@concat('Bearer ',activity('Generate_token').output.access_token)",
+							"type": "Expression"
+						}
+					},
+					"body": {
+						"value": "[\n   {\n      \"Time\":\"2023-03-27T04:01:07.7289668Z\",\n      \"Application\":\"Synapse Pipeline\",\n      \"RawData\":\"0.0.153.185 - - [19/Dec/2020:14:08:08 +0100] \\\"GET /favicon.ico HTTP/1.1\\\" 404 217 \\\"http://www.almhuette-raith.at/apache-log/access.log\\\" \\\"Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36\\\" \\\"-\\\"\"\n   }\n]",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2023-03-27T13:20:32Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

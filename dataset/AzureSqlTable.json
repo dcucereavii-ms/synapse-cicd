@@ -1,0 +1,35 @@
+{
+	"name": "AzureSqlTable",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "LocationId",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Borough",
+				"type": "varchar"
+			},
+			{
+				"name": "Zone",
+				"type": "varchar"
+			},
+			{
+				"name": "ServiceZone",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "TaxiZones"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}
