@@ -22,11 +22,11 @@ on:
       armTemplateFile:
         description: 'ARM template file name'
         required: false
-        default: 'ARMTemplateForFactory.json'
+        default: 'TemplateForWorkspace.json'
       armTemplateParametersFile:
         description: 'ARM template parameters file name'
         required: false
-        default: 'TemplateForWorkspace.json'
+        default: 'TemplateParametersForWorkspace.json'
       additionalParameters:
         description: 'Parameters which will be replaced in the ARM template'
         required: false
