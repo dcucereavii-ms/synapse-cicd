@@ -5,7 +5,7 @@
 		"workspaceName": {
 			"type": "string",
 			"metadata": "Workspace name",
-			"defaultValue": "synapse-demo-wrkspace"
+			"defaultValue": "dcucereavii-prod"
 		},
 		"AzureBlobStorage_connectionString": {
 			"type": "secureString",
