@@ -12,7 +12,7 @@
 			"value": "integrated security=False;encrypt=True;connection timeout=30;data source=sqlserversynapse-demo.database.windows.net;initial catalog=synapse-db-demo;user id=dcucereavii"
 		},
 		"hashAzureFunction_functionKey": {
-			"value": "P@ssword123!"
+			"value": "v_Oxu1IhkZwl9TY4vVDu2O-gBL9fMZeZQfJk2Ag6tdRlAzFusJgPUg=="
 		},
 		"synapse-demo-wrkspace-WorkspaceDefaultSqlServer_connectionString": {
 			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:synapse-demo-wrkspace.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
