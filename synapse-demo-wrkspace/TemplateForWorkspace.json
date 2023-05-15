@@ -20,10 +20,6 @@
 			"metadata": "Secure string for 'connectionString' of 'synapse-demo-wrkspace-WorkspaceDefaultSqlServer'",
 			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:synapse-demo-wrkspace.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
 		},
-		"hashAzureFunction_properties_typeProperties_functionAppUrl": {
-			"type": "string",
-			"defaultValue": "https://hashfunctionappsynapse.azurewebsites.net"
-		},
 		"synapse-demo-wrkspace-WorkspaceDefaultStorage_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://synapsetestwrkspace.dfs.core.windows.net"
