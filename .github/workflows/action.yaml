@@ -1,12 +1,12 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Synapse_CICD
 
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [adf_publish]
+    branches: [workspace_publish]
   pull_request:
     branches: []
 
@@ -14,10 +14,10 @@ on:
   workflow_dispatch:
     inputs:
       resourceGroupName:
-        description: 'Data Factory resource group name'
+        description: 'Synapse resource group name'
         required: true
-      dataFactoryName:
-        description: 'Data factory name'
+      SynapseName:
+        description: 'Synapse name'
         required: true
       armTemplateFile:
         description: 'ARM template file name'
@@ -26,7 +26,7 @@ on:
       armTemplateParametersFile:
         description: 'ARM template parameters file name'
         required: false
-        default: 'ARMTemplateParametersForFactory.json'
+        default: 'TemplateForWorkspace.json'
       additionalParameters:
         description: 'Parameters which will be replaced in the ARM template'
         required: false
@@ -53,8 +53,8 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         with:
-          ref: adf_publish
-          path: adf_publish
+          ref: workspace_publish
+          path: workspace_publish
     
       - name: Azure Login
         uses: Azure/login@v1
@@ -78,29 +78,29 @@ jobs:
         run: Set-AzContext -SubscriptionName "${{ secrets.SUBSCRIPTION_ID }}"
         shell: pwsh  
         
-      - name: Run Pre-deployment script
-        run: |
-          ${{ github.workspace }}\adf_publish\PrePostDeploymentScript.ps1 `
-            -armTemplate "adf_publish/cl-datafactory-df/${{ inputs.armTemplateFile }}" `
-            -ResourceGroupName "${{ inputs.resourceGroupName }}" `
-            -DataFactoryName "${{ inputs.dataFactoryName }}" `
-            -predeployment $true `
-            -deleteDeployment $false
-        shell: pwsh
+#       - name: Run Pre-deployment script
+#         run: |
+#           ${{ github.workspace }}\workspace_publish\PrePostDeploymentScript.ps1 `
+#             -armTemplate "workspace_publish/synapse-demo-wrkspace/${{ inputs.armTemplateFile }}" `
+#             -ResourceGroupName "${{ inputs.resourceGroupName }}" `
+#             -SynapseName "${{ inputs.SynapseName }}" `
+#             -predeployment $true `
+#             -deleteDeployment $false
+#         shell: pwsh
 
       - name: Run ARM deploy
         uses: azure/arm-deploy@v1
         with:
           resourceGroupName: ${{ inputs.resourceGroupName }}
-          template: ./adf_publish/cl-datafactory-df/${{ inputs.armTemplateFile }}
-          parameters: ./adf_publish/cl-datafactory-df/${{ inputs.armTemplateParametersFile }}
+          template: ./workspace_publish/synapse-demo-wrkspace/${{ inputs.armTemplateFile }}
+          parameters: ./workspace_publish/synapse-demo-wrkspace/${{ inputs.armTemplateParametersFile }}
 
-      - name: Run Post-deployment script
-        run: |
-          ${{ github.workspace }}\adf_publish\PrePostDeploymentScript.ps1 `
-            -armTemplate "adf_publish/cl-datafactory-df/${{ inputs.armTemplateFile }}" `
-            -ResourceGroupName "${{ inputs.resourceGroupName }}" `
-            -DataFactoryName '${{ inputs.dataFactoryName }}' `
-            -predeployment $false `
-            -deleteDeployment $true
-        shell: pwsh
+#       - name: Run Post-deployment script
+#         run: |
+#           ${{ github.workspace }}\workspace_publish\PrePostDeploymentScript.ps1 `
+#             -armTemplate "workspace_publish/synapse-demo-wrkspace/${{ inputs.armTemplateFile }}" `
+#             -ResourceGroupName "${{ inputs.resourceGroupName }}" `
+#             -DataFactoryName '${{ inputs.SynapseName }}' `
+#             -predeployment $false `
+#             -deleteDeployment $true
+#         shell: pwsh
