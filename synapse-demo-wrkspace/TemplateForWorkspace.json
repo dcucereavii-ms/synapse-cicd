@@ -5,7 +5,7 @@
 		"workspaceName": {
 			"type": "string",
 			"metadata": "Workspace name",
-			"defaultValue": "dcucereavii-prod"
+			"defaultValue": "synapse-demo-wrkspace"
 		},
 		"AzureBlobStorage_connectionString": {
 			"type": "secureString",
@@ -288,7 +288,8 @@
 									"value": "@concat('Bearer ',activity('Generate_token').output.access_token)",
 									"type": "Expression"
 								}
-							}
+							},
+							"body": "test"
 						}
 					}
 				],
@@ -371,30 +372,6 @@
 				"type": "AzureSqlDatabase",
 				"typeProperties": {
 					"connectionString": "[parameters('AzureSqlDatabase_connectionString')]"
-				},
-				"connectVia": {
-					"referenceName": "AutoResolveIntegrationRuntime",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('workspaceName'), '/hashAzureFunction')]",
-			"type": "Microsoft.Synapse/workspaces/linkedServices",
-			"apiVersion": "2019-06-01-preview",
-			"properties": {
-				"annotations": [],
-				"type": "AzureFunction",
-				"typeProperties": {
-					"functionAppUrl": "[parameters('hashAzureFunction_properties_typeProperties_functionAppUrl')]",
-					"functionKey": {
-						"type": "SecureString",
-						"value": "[parameters('hashAzureFunction_functionKey')]"
-					},
-					"authentication": "Anonymous"
 				},
 				"connectVia": {
 					"referenceName": "AutoResolveIntegrationRuntime",

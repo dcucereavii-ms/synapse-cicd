@@ -3,22 +3,16 @@
 	"contentVersion": "1.0.0.0",
 	"parameters": {
 		"workspaceName": {
-			"value": "dcucereavii-prod"
+			"value": "synapse-demo-wrkspace"
 		},
 		"AzureBlobStorage_connectionString": {
-			"value": "DefaultEndpointsProtocol=https;AccountName=synapsedemotest;EndpointSuffix=core.windows.net;"
+			"value": ""
 		},
 		"AzureSqlDatabase_connectionString": {
-			"value": "integrated security=False;encrypt=True;connection timeout=30;data source=sqlserversynapse-demo.database.windows.net;initial catalog=synapse-db-demo;user id=dcucereavii"
-		},
-		"hashAzureFunction_functionKey": {
-			"value": "v_Oxu1IhkZwl9TY4vVDu2O-gBL9fMZeZQfJk2Ag6tdRlAzFusJgPUg=="
+			"value": ""
 		},
 		"synapse-demo-wrkspace-WorkspaceDefaultSqlServer_connectionString": {
 			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:synapse-demo-wrkspace.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
-		},
-		"hashAzureFunction_properties_typeProperties_functionAppUrl": {
-			"value": "https://hashfunctionappsynapse.azurewebsites.net"
 		},
 		"synapse-demo-wrkspace-WorkspaceDefaultStorage_properties_typeProperties_url": {
 			"value": "https://synapsetestwrkspace.dfs.core.windows.net"
