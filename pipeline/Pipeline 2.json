@@ -103,10 +103,6 @@
 							"value": "@concat('Bearer ',activity('Generate_token').output.access_token)",
 							"type": "Expression"
 						}
-					},
-					"body": {
-						"value": "[\n   {\n      \"Time\":\"2023-05-27T04:01:07.7289668Z\",\n      \"Application\":\"Synapse Pipeline\",\n   }\n]",
-						"type": "Expression"
 					}
 				}
 			}
