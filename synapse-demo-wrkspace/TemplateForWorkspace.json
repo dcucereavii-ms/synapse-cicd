@@ -15,10 +15,6 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase'"
 		},
-		"hashAzureFunction_functionKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'functionKey' of 'hashAzureFunction'"
-		},
 		"synapse-demo-wrkspace-WorkspaceDefaultSqlServer_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'synapse-demo-wrkspace-WorkspaceDefaultSqlServer'",
