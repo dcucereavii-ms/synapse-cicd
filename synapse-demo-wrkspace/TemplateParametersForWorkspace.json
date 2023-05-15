@@ -3,7 +3,7 @@
 	"contentVersion": "1.0.0.0",
 	"parameters": {
 		"workspaceName": {
-			"value": "synapse-demo-wrkspace"
+			"value": "dcucereavii-prod"
 		},
 		"AzureBlobStorage_connectionString": {
 			"value": ""
