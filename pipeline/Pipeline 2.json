@@ -103,7 +103,8 @@
 							"value": "@concat('Bearer ',activity('Generate_token').output.access_token)",
 							"type": "Expression"
 						}
-					}
+					},
+					"body": "test"
 				}
 			}
 		],
